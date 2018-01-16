@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#7b5fbe"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.pedro.ahorcado.MainActivity">
+
+    <RelativeLayout
+        android:layout_weight="3"
+        android:background="@drawable/fondo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            style="@style/fondoLabel">
+
+            <ImageView
+                android:src="@mipmap/ic_heart_round"
+                style="@style/imgIconStyle" />
+
+            <TextView
+                android:id="@+id/tvLifes"
+                android:text="1"
+                style="@style/textviewStyle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            style="@style/fondoLabel">
+            <TextView
+                android:id="@+id/score"
+                android:text="0"
+                style="@style/textviewStyle"/>
+            <ImageView
+                android:src="@mipmap/ic_launcher"
+                style="@style/imgIconStyle"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/horca"
+            android:scaleType="fitCenter"
+            android:src="@drawable/iniciohorca"
+            android:layout_centerInParent="true"
+            android:layout_width="225dp"
+            android:layout_height="225dp"/>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/horca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/textviewStyle"/>
+
+    </RelativeLayout>
+
+    <TableLayout
+        android:id="@+id/teclado"
+        android:layout_weight="5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </TableLayout>
+
+    <Button
+        android:text="@string/ayuda"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
