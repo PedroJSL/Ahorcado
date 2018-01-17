@@ -8,6 +8,5 @@
     android:layout_margin="5dp"
     android:textColor="@color/colorAccent"
     android:textStyle="bold"
-    android:background="@color/fondoTransparencia"
     android:onClick="pulsarLetra"/>
 
