@@ -7,7 +7,8 @@ package com.example.pedro.ahorcado;
 public class Palabra {
     private String palabra;
     private String pista;
-    private String palabraOculta;
+    private String[] palabraOculta;
+    private String[] palabraLetraALetra;
 
     public Palabra(String palabra, String pista){
         this.palabra = palabra;
@@ -18,20 +19,27 @@ public class Palabra {
 
     public boolean contieneLetra(String letra){
         if(palabra.contains(letra)){
-
+            descubrirPalabra(letra);
             return true;
         }
         return false;
     }
 
-
-    public void setPalabraOculta(){
-        String[] palabraLetraALetra = palabra.split("");
-        String aux = "";
-        for (int i = 0; i < palabraLetraALetra.length ; i++) {
-            aux += "_ ";
+    private void descubrirPalabra(String letra){
+        for (int i = 0; i <palabraLetraALetra.length ; i++) {
+            if(palabraLetraALetra[i].equals(letra)){
+                palabraOculta[i]=letra;
+            }
         }
-        palabraOculta = aux.trim();
+    }
+
+
+    private void setPalabraOculta(){
+        palabraLetraALetra = palabra.split("");
+        palabraOculta = new String[palabraLetraALetra.length];
+        for (int i = 0; i < palabraLetraALetra.length ; i++) {
+            palabraOculta[i] = "_";
+        }
     }
 
     public String getPalabra() {
@@ -43,6 +51,10 @@ public class Palabra {
     }
 
     public String getPalabraOculta() {
-        return palabraOculta;
+        String aux = "";
+        for (String caracter: palabraOculta) {
+            aux+=caracter;
+        }
+        return aux;
     }
 }
