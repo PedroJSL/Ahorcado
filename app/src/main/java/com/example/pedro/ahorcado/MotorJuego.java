@@ -5,4 +5,12 @@ package com.example.pedro.ahorcado;
  */
 
 public class MotorJuego {
+    Palabra p;
+    Biblioteca b;
+    //Reproductor r;
+
+    public MotorJuego(){
+        b = new Biblioteca();
+        p = b.getPalabra();
+    }
 }

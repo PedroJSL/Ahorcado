@@ -50,6 +50,11 @@
             android:layout_height="225dp"/>
 
         <TextView
+            android:id="@+id/palabraOculta"
+            android:background="@color/fondoTransparencia"
+            android:layout_gravity="center_horizontal"
+            android:textSize="20sp"
+            android:padding="5dp"
             android:layout_centerInParent="true"
             android:layout_below="@+id/horca"
             android:layout_width="wrap_content"
@@ -61,6 +66,7 @@
     <TableLayout
         android:id="@+id/teclado"
         android:padding="5dp"
+        android:shrinkColumns="0"
         android:background="@drawable/gradient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

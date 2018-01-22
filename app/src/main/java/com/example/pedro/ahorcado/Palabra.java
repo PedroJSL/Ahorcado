@@ -37,7 +37,7 @@ public class Palabra {
     private void setPalabraOculta(){
         palabraLetraALetra = palabra.split("");
         palabraOculta = new String[palabraLetraALetra.length];
-        for (int i = 0; i < palabraLetraALetra.length ; i++) {
+        for (int i = 0; i < palabraLetraALetra.length; i++) {
             palabraOculta[i] = "_";
         }
     }
@@ -53,8 +53,8 @@ public class Palabra {
     public String getPalabraOculta() {
         String aux = "";
         for (String caracter: palabraOculta) {
-            aux+=caracter;
+            aux+=caracter+" ";
         }
-        return aux;
+        return aux.trim();
     }
 }
