@@ -35,7 +35,10 @@ public class Palabra {
 
 
     private void setPalabraOculta(){
-        palabraLetraALetra = palabra.split("");
+        palabraLetraALetra = new String[palabra.length()];
+        for (int i = 0; i <palabraLetraALetra.length ; i++) {
+            palabraLetraALetra[i]=String.valueOf(palabra.charAt(i));
+        }
         palabraOculta = new String[palabraLetraALetra.length];
         for (int i = 0; i < palabraLetraALetra.length; i++) {
             palabraOculta[i] = "_";
