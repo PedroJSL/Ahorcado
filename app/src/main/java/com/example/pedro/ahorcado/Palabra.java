@@ -1,43 +1,45 @@
 package com.example.pedro.ahorcado;
 
-/**
- * Created by pedro on 16/01/2018.
- */
-
 public class Palabra {
     private String palabra;
     private String pista;
     private String[] palabraOculta;
     private String[] palabraLetraALetra;
 
-    public Palabra(String palabra, String pista){
+    public Palabra(String palabra, String pista) {
         this.palabra = palabra;
         this.pista = pista;
 
         setPalabraOculta();
     }
 
-    public boolean contieneLetra(String letra){
-        if(palabra.contains(letra)){
+    public boolean contieneLetra(String letra) {
+        if (palabra.contains(letra)) {
             descubrirPalabra(letra);
             return true;
         }
         return false;
     }
 
-    private void descubrirPalabra(String letra){
-        for (int i = 0; i <palabraLetraALetra.length ; i++) {
-            if(palabraLetraALetra[i].equals(letra)){
-                palabraOculta[i]=letra;
+    private void descubrirPalabra(String letra) {
+        for (int i = 0; i < palabraLetraALetra.length; i++) {
+            if (palabraLetraALetra[i].equals(letra)) {
+                palabraOculta[i] = letra;
             }
         }
     }
 
+    private boolean palabraDescubierta(){
+        //for (int i)
+    }
 
-    private void setPalabraOculta(){
+
+
+
+    private void setPalabraOculta() {
         palabraLetraALetra = new String[palabra.length()];
-        for (int i = 0; i <palabraLetraALetra.length ; i++) {
-            palabraLetraALetra[i]=String.valueOf(palabra.charAt(i));
+        for (int i = 0; i < palabraLetraALetra.length; i++) {
+            palabraLetraALetra[i] = String.valueOf(palabra.charAt(i));
         }
         palabraOculta = new String[palabraLetraALetra.length];
         for (int i = 0; i < palabraLetraALetra.length; i++) {
@@ -55,8 +57,8 @@ public class Palabra {
 
     public String getPalabraOculta() {
         String aux = "";
-        for (String caracter: palabraOculta) {
-            aux+=caracter+" ";
+        for (String caracter : palabraOculta) {
+            aux += caracter + " ";
         }
         return aux.trim();
     }

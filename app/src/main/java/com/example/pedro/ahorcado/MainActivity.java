@@ -2,26 +2,30 @@ package com.example.pedro.ahorcado;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
 private static final String[] letrasESP = {"Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Ñ","Z","X","C","V","B","N","M"};
 TableLayout teclado;
 TextView tvPalabraOculta;
+ImageView img;
 MotorJuego mj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         teclado = findViewById(R.id.teclado);
+        img = findViewById(R.id.horca);
         crearTeclado();
         tvPalabraOculta = findViewById(R.id.palabraOculta);
-        mj = new MotorJuego();
+        mj = new MotorJuego(img,this);
         mostrarPalabraOculta();
     }
 
@@ -36,6 +40,8 @@ MotorJuego mj;
                 aux.setTextColor(getResources().getColor(R.color.acierto));
                 mostrarPalabraOculta();
             } else {
+                mj.errores++;
+                mj.setImagen();
                 aux.setTextColor(getResources().getColor(R.color.error));
             }
 
