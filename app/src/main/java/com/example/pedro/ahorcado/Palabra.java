@@ -31,6 +31,7 @@ public class Palabra {
 
     private boolean palabraDescubierta(){
         //for (int i)
+        return false;
     }
 
 
