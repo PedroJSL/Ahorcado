@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
 private static final String[] letrasESP = {"Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Ñ","Z","X","C","V","B","N","M"};
 TableLayout teclado;
-TextView tvPalabraOculta;
+TextView tvPalabraOculta, tvPuntos;
 ImageView img;
 MotorJuego mj;
 
@@ -23,41 +23,33 @@ MotorJuego mj;
         setContentView(R.layout.activity_main);
         teclado = findViewById(R.id.teclado);
         img = findViewById(R.id.horca);
+        tvPuntos = findViewById(R.id.score);
         crearTeclado();
         tvPalabraOculta = findViewById(R.id.palabraOculta);
-        mj = new MotorJuego(img,this);
-        mostrarPalabraOculta();
-    }
-
-    private void mostrarPalabraOculta(){
-        tvPalabraOculta.setText(mj.p.getPalabraOculta());
+        mj = new MotorJuego(img,tvPalabraOculta,tvPuntos);
+        mj.mostrarPalabraOculta();
     }
 
     public void pulsarLetra(View v){
         TextView aux = (TextView) v;
-        if(aux.getCurrentTextColor()==getResources().getColor(R.color.colorAccent)) {
-            if (mj.p.contieneLetra(aux.getText().toString())) {
+        if(aux.getCurrentTextColor()==getResources().getColor(R.color.colorAccent)&&mj.partidaEnCurso) {
+            if (mj.descubrirPalabra(aux.getText().toString())) {
                 aux.setTextColor(getResources().getColor(R.color.acierto));
-                mostrarPalabraOculta();
+                mj.mostrarPalabraOculta();
             } else {
                 mj.errores++;
                 mj.setImagen();
                 aux.setTextColor(getResources().getColor(R.color.error));
             }
-
         }
-
-
     }
 
     private void crearTeclado(){
         TableRow fila = null;
         TextView bLetra;
-        int ancho = getResources().getConfiguration().screenWidthDp;
-        int tvFila = ancho/50;
+        int tvFila = 10;
         int cont = 0;
         int contLetra = 0;
-
         while (contLetra< letrasESP.length) {
             if(cont==0){
                 fila = new TableRow(this);

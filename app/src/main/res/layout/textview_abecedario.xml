@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimaryDark"
-    android:textSize="45sp"
+    android:textSize="35sp"
     android:padding="5dp"
     android:gravity="end"
     android:layout_margin="5dp"

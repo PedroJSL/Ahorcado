@@ -1,7 +1,7 @@
 package com.example.pedro.ahorcado;
 
-import android.content.Context;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MotorJuego {
 
@@ -10,44 +10,81 @@ public class MotorJuego {
 
     Palabra p;
     Biblioteca b;
-    Context main;
     ImageView img;
     //Reproductor r;
+    TextView tvPalabraOculta;
+    TextView tvPuntos;
+    boolean partidaEnCurso = false;
     int errores;
     int puntuacion;
 
-    public MotorJuego(ImageView img, Context main) {
+    public MotorJuego(ImageView img, TextView palabraOculta, TextView tvPuntos) {
         this.img = img;
-        this.main = main;
+        this.tvPalabraOculta = palabraOculta;
+        this.tvPuntos = tvPuntos;
         b = new Biblioteca();
-        p = b.getPalabra();
-        errores = 0;
-        setImagen();
-        puntuacion = 0;
+        iniciarPartida();
+    }
+
+    public boolean descubrirPalabra(String letra) {
+        if (p.contieneLetra(letra)) {
+            for (int i = 0; i < p.palabraLetraALetra.length; i++) {
+                if (p.palabraLetraALetra[i].equals(letra)) {
+                    p.palabraOculta[i] = letra;
+                }
+            }
+            if(palabraDescubierta()){
+                partidaGanada();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean palabraDescubierta() {
+        for (int i = 0; i < p.palabraLetraALetra.length; i++) {
+            if (p.palabraLetraALetra[i].equals(p.palabraOculta[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
     public void setImagen() {
-        if (errores == 6) {
-            partidaPerdida();
+        if (errores < imagenesError.length) {
+            if (errores == 6) {
+                partidaPerdida();
+            }
+            img.setImageResource(imagenesError[errores]);
         }
-        img.setImageResource(imagenesError[errores]);
     }
 
     public void partidaPerdida() {
+        partidaEnCurso = false;
 
     }
 
-    public void partidaGanada(){
-
+    public void partidaGanada() {
+        puntuacion += 100;
+        partidaEnCurso = false;
+        setPuntuacion();
     }
 
     public void iniciarPartida() {
         p = b.getPalabra();
+        partidaEnCurso = true;
         errores = 0;
         setImagen();
     }
 
+    public void mostrarPalabraOculta() {
+        tvPalabraOculta.setText(p.getPalabraOculta());
+    }
+
+    public void setPuntuacion() {
+        tvPuntos.setText(puntuacion);
+    }
 
 
 }
