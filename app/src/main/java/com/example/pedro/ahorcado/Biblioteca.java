@@ -10,7 +10,7 @@ import java.util.Iterator;
 public class Biblioteca {
     private static final String[] palabrasString = {"ANDROID"};
     private static final String[] pista = {""};
-    private ArrayList<Palabra> palabras;
+    ArrayList<Palabra> palabras;
 
     public Biblioteca(){
         palabras = new ArrayList<>();

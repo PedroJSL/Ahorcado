@@ -23,7 +23,7 @@
                 style="@style/imgIconStyle" />
 
             <TextView
-                android:id="@+id/tvLifes"
+                android:id="@+id/tvVidas"
                 android:text="1"
                 style="@style/textviewStyle" />
         </LinearLayout>
@@ -33,7 +33,7 @@
             android:layout_alignParentEnd="true"
             style="@style/fondoLabel">
             <TextView
-                android:id="@+id/score"
+                android:id="@+id/tvPuntuacion"
                 android:text="0"
                 style="@style/textviewStyle"/>
             <ImageView
@@ -42,7 +42,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/horca"
+            android:id="@+id/imgHorca"
             android:scaleType="fitCenter"
             android:src="@drawable/fallo_0"
             android:layout_centerInParent="true"
@@ -50,13 +50,13 @@
             android:layout_height="225dp"/>
 
         <TextView
-            android:id="@+id/palabraOculta"
+            android:id="@+id/tvPalabraOculta"
             android:background="@color/fondoTransparencia"
             android:layout_gravity="center_horizontal"
             android:textSize="20sp"
             android:padding="5dp"
             android:layout_centerInParent="true"
-            android:layout_below="@+id/horca"
+            android:layout_below="@+id/imgHorca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/textviewStyle"/>
@@ -74,10 +74,38 @@
     </TableLayout>
 
     <Button
-        android:background="#B2FFFF00"
+        android:id="@+id/bAyuda"
         android:text="@string/ayuda"
+        android:background="#0b47fd"
         android:layout_margin="5dp"
+        android:textColor="@color/colorAccent"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/bSiguientePalabra"
+        android:text="@string/continuar"
+        android:background="#0b47fd"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorAccent"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/bNuevaPartida"
+        android:text="@string/nueva_partida"
+        android:background="#0b47fd"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorAccent"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+
+
+
 </LinearLayout>
