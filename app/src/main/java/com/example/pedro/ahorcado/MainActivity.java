@@ -2,13 +2,16 @@ package com.example.pedro.ahorcado;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -18,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvPalabraOculta, tvPuntos;
     ImageView img;
     MotorJuego mj;
+    VideoView vv;
+    ProgressBar pg;
     Button bAyuda, bSiguientePalabra, bNuevaPartida;
 
     @Override
@@ -25,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        vv = findViewById(R.id.videoView);
+        pg = findViewById(R.id.progressBar);
         teclado = findViewById(R.id.teclado);
         img = findViewById(R.id.imgHorca);
         tvPuntos = findViewById(R.id.tvPuntuacion);
@@ -36,8 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bSiguientePalabra.setOnClickListener(this);
         bNuevaPartida = findViewById(R.id.bNuevaPartida);
         bNuevaPartida.setOnClickListener(this);
-
-        crearTeclado();
 
         mj = new MotorJuego(this);
         mj.mostrarPalabraOculta();
@@ -57,7 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void crearTeclado() {
+    public void crearTeclado() {
+        teclado.removeAllViews();
         TableRow fila = null;
         TextView bLetra;
         int tvFila = 9;
@@ -82,8 +88,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         teclado.addView(fila);
-
     }
+
 
     @Override
     public void onClick(View v) {
@@ -92,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mj.mostrarAyuda();
                 break;
             case R.id.bSiguientePalabra:
-                mj.iniciarPartida();
+                mj.siguientePalabra();
                 break;
             case R.id.bNuevaPartida:
                 mj.iniciarPartida();

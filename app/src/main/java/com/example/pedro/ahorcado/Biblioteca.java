@@ -1,15 +1,10 @@
 package com.example.pedro.ahorcado;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
-/**
- * Created by pedro on 16/01/2018.
- */
 
 public class Biblioteca {
-    private static final String[] palabrasString = {"ANDROID"};
-    private static final String[] pista = {""};
+    private static final String[] palabrasString = {"ANDROID","TUBERIA","BOTELLA"};
+    private static final String[] pista = {"https://s3.amazonaws.com/fancyfootageclips/website/vid/2015-02-02-concert.mp4","https://s3.amazonaws.com/fancyfootageclips/website/vid/2015-02-02-concert.mp4","https://s3.amazonaws.com/fancyfootageclips/website/vid/2015-02-02-concert.mp4"};
     ArrayList<Palabra> palabras;
 
     public Biblioteca(){
@@ -23,7 +18,6 @@ public class Biblioteca {
     public Palabra getPalabra(){
         int random =(int) Math.random()*palabras.size();
         Palabra p = palabras.get(random);
-        palabras.remove(p);
         return p;
     }
 }

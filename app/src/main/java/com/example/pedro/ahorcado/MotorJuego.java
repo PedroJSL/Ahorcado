@@ -1,6 +1,8 @@
 package com.example.pedro.ahorcado;
 
 import android.view.View;
+import android.widget.Toast;
+
 
 public class MotorJuego {
 
@@ -9,6 +11,7 @@ public class MotorJuego {
 
     private Palabra p;
     private Biblioteca b;
+    private Reproductor r;
     boolean partidaEnCurso = false;
     private int errores;
     private int puntuacion;
@@ -16,21 +19,21 @@ public class MotorJuego {
     private MainActivity m;
 
     public MotorJuego(MainActivity main) {
-        this.m = main;
-        vidas = Integer.parseInt(m.tvVidas.getText().toString());
-        b = new Biblioteca();
+        m = main;
+        r = new Reproductor(m.vv, m.pg, m.getApplicationContext());
         iniciarPartida();
     }
 
     public boolean descubrirPalabra(String letra) {
         if (p.contieneLetra(letra)) {
+            r.reproducirAcierto();
             for (int i = 0; i < p.palabraLetraALetra.length; i++) {
                 if (p.palabraLetraALetra[i].equals(letra)) {
                     p.palabraOculta[i] = letra;
                 }
             }
             if (palabraDescubierta()) {
-                partidaGanada();
+                palabraAcertada();
             }
             return true;
         }
@@ -51,33 +54,34 @@ public class MotorJuego {
     public void setImagen() {
         if (errores < imagenesError.length) {
             if (errores == 6) {
-                partidaPerdida();
+                palabraNoAcertada();
             }
             m.img.setImageResource(imagenesError[errores]);
         }
     }
 
-    private void partidaPerdida() {
+    private void palabraNoAcertada() {
         partidaEnCurso = false;
-        vidas -= 1;
+        vidas = vidas - 1;
         m.tvVidas.setText(String.valueOf(vidas));
         m.bAyuda.setVisibility(View.GONE);
         if (vidas <= 0) {
-            finJuego();
-        }else{
+            m.bNuevaPartida.setVisibility(View.VISIBLE);
+        } else {
             m.bSiguientePalabra.setVisibility(View.VISIBLE);
         }
-
     }
 
-    private void partidaGanada() {
+    private void palabraAcertada() {
         puntuacion += 100;
         partidaEnCurso = false;
         m.tvPuntos.setText(String.valueOf(puntuacion));
-        if(!b.palabras.isEmpty()){
+        b.palabras.remove(p);
+        if (!b.palabras.isEmpty()) {
             m.bAyuda.setVisibility(View.GONE);
             m.bSiguientePalabra.setVisibility(View.VISIBLE);
-        }else{
+        } else {
+            Toast.makeText(m.getApplicationContext(), "No quedan mas palabras, has ganado!", Toast.LENGTH_LONG).show();
             m.bAyuda.setVisibility(View.GONE);
             m.bNuevaPartida.setVisibility(View.VISIBLE);
         }
@@ -85,10 +89,20 @@ public class MotorJuego {
     }
 
     public void iniciarPartida() {
+        b = new Biblioteca();
         p = b.getPalabra();
         partidaEnCurso = true;
+        puntuacion = 0;
+        vidas = 3;
         errores = 0;
         setImagen();
+        mostrarPalabraOculta();
+        m.crearTeclado();
+        m.tvVidas.setText(String.valueOf(vidas));
+        m.tvPuntos.setText(String.valueOf(puntuacion));
+        m.bAyuda.setVisibility(View.VISIBLE);
+        m.bNuevaPartida.setVisibility(View.GONE);
+        m.bSiguientePalabra.setVisibility(View.GONE);
     }
 
     public void mostrarPalabraOculta() {
@@ -97,12 +111,17 @@ public class MotorJuego {
 
 
     public void mostrarAyuda() {
+        r.reproducirPista(p.getPista());
     }
 
-    public void nuevaPartida() {
-    }
-
-    private void finJuego() {
-        m.bNuevaPartida.setVisibility(View.VISIBLE);
+    public void siguientePalabra() {
+        p = b.getPalabra();
+        partidaEnCurso = true;
+        errores = 0;
+        setImagen();
+        mostrarPalabraOculta();
+        m.crearTeclado();
+        m.bAyuda.setVisibility(View.VISIBLE);
+        m.bSiguientePalabra.setVisibility(View.GONE);
     }
 }

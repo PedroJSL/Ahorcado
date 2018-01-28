@@ -1,111 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="#00b2fe"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00b2fe"
+    android:orientation="vertical"
     tools:context="com.example.pedro.ahorcado.MainActivity">
 
     <RelativeLayout
-        android:layout_weight="3"
-        android:background="@drawable/fondo"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="@drawable/fondo">
 
         <LinearLayout
+            style="@style/fondoLabel"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            style="@style/fondoLabel">
+            android:layout_alignParentTop="true">
 
             <ImageView
-                android:src="@mipmap/ic_heart_round"
-                style="@style/imgIconStyle" />
+                style="@style/imgIconStyle"
+                android:src="@mipmap/ic_heart_round" />
 
             <TextView
                 android:id="@+id/tvVidas"
-                android:text="1"
-                style="@style/textviewStyle" />
+                style="@style/textviewStyle"
+                android:text="1" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_alignParentTop="true"
+            style="@style/fondoLabel"
             android:layout_alignParentEnd="true"
-            style="@style/fondoLabel">
+            android:layout_alignParentTop="true">
+
             <TextView
                 android:id="@+id/tvPuntuacion"
-                android:text="0"
-                style="@style/textviewStyle"/>
+                style="@style/textviewStyle"
+                android:text="0" />
+
             <ImageView
-                android:src="@mipmap/ic_launcher"
-                style="@style/imgIconStyle"/>
+                style="@style/imgIconStyle"
+                android:src="@mipmap/ic_launcher" />
+
         </LinearLayout>
 
         <ImageView
             android:id="@+id/imgHorca"
-            android:scaleType="fitCenter"
-            android:src="@drawable/fallo_0"
-            android:layout_centerInParent="true"
             android:layout_width="225dp"
-            android:layout_height="225dp"/>
+            android:layout_height="225dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/fallo_0" />
 
         <TextView
             android:id="@+id/tvPalabraOculta"
-            android:background="@color/fondoTransparencia"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20sp"
-            android:padding="5dp"
-            android:layout_centerInParent="true"
-            android:layout_below="@+id/imgHorca"
+            style="@style/textviewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/textviewStyle"/>
+            android:layout_below="@+id/imgHorca"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/fondoTransparencia"
+            android:padding="5dp"
+            android:textSize="20sp" />
 
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <TableLayout
         android:id="@+id/teclado"
-        android:padding="5dp"
-        android:shrinkColumns="0"
-        android:background="@drawable/gradient"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient"
+        android:padding="5dp"
+        android:shrinkColumns="0">
 
     </TableLayout>
 
     <Button
         android:id="@+id/bAyuda"
-        android:text="@string/ayuda"
-        android:background="#0b47fd"
-        android:layout_margin="5dp"
-        android:textColor="@color/colorAccent"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:background="#0b47fd"
+        android:text="@string/ayuda"
+        android:textColor="@color/colorAccent" />
 
     <Button
         android:id="@+id/bSiguientePalabra"
-        android:text="@string/continuar"
-        android:background="#0b47fd"
-        android:layout_margin="5dp"
-        android:textColor="@color/colorAccent"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:background="#0b47fd"
+        android:text="@string/continuar"
+        android:textColor="@color/colorAccent"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/bNuevaPartida"
-        android:text="@string/nueva_partida"
-        android:background="#0b47fd"
-        android:layout_margin="5dp"
-        android:textColor="@color/colorAccent"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
-
-
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:background="#0b47fd"
+        android:text="@string/nueva_partida"
+        android:textColor="@color/colorAccent"
+        android:visibility="gone" />
 
 
 </LinearLayout>

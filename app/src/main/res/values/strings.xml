@@ -3,4 +3,5 @@
     <string name="ayuda">Ayuda</string>
     <string name="continuar">Continuar</string>
     <string name="nueva_partida">Nueva Partida</string>
+    <string name="cargando_pista">Cargando pista..</string>
 </resources>
