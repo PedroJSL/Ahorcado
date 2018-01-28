@@ -9,6 +9,8 @@ public class MotorJuego {
     private int[] imagenesError = {R.drawable.fallo_0, R.drawable.fallo_1, R.drawable.fallo_2,
             R.drawable.fallo_3, R.drawable.fallo_4, R.drawable.fallo_5, R.drawable.fallo_6};
 
+    private int imgVictoria = R.drawable.victoria;
+
     private Palabra p;
     private Biblioteca b;
     private Reproductor r;
@@ -26,7 +28,6 @@ public class MotorJuego {
 
     public boolean descubrirPalabra(String letra) {
         if (p.contieneLetra(letra)) {
-            r.reproducirAcierto();
             for (int i = 0; i < p.palabraLetraALetra.length; i++) {
                 if (p.palabraLetraALetra[i].equals(letra)) {
                     p.palabraOculta[i] = letra;
@@ -37,6 +38,11 @@ public class MotorJuego {
             }
             return true;
         }
+        if(errores<4){
+        r.reproducirFallo();
+        }else if (errores==4){
+            r.reproducirSonido(r.ultimoIntento);
+        }
         errores++;
         return false;
     }
@@ -44,6 +50,7 @@ public class MotorJuego {
     private boolean palabraDescubierta() {
         for (int i = 0; i < p.palabraLetraALetra.length; i++) {
             if (!p.palabraLetraALetra[i].equals(p.palabraOculta[i])) {
+                r.reproducirSonido(r.acierto);
                 return false;
             }
         }
@@ -57,10 +64,12 @@ public class MotorJuego {
                 palabraNoAcertada();
             }
             m.img.setImageResource(imagenesError[errores]);
+
         }
     }
 
     private void palabraNoAcertada() {
+        r.reproducirSonido(r.derrota);
         partidaEnCurso = false;
         vidas = vidas - 1;
         m.tvVidas.setText(String.valueOf(vidas));
@@ -73,6 +82,8 @@ public class MotorJuego {
     }
 
     private void palabraAcertada() {
+        r.reproducirSonido(r.victoria);
+        m.img.setImageResource(imgVictoria);
         puntuacion += 100;
         partidaEnCurso = false;
         m.tvPuntos.setText(String.valueOf(puntuacion));
