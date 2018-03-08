@@ -1,5 +1,8 @@
 package com.example.pedro.ahorcado;
 
+import android.content.DialogInterface;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,7 +25,7 @@ public class MotorJuego {
 
     public MotorJuego(MainActivity main) {
         m = main;
-        r = new Reproductor(m.vv, m.pg, m.getApplicationContext());
+        r = new Reproductor(m.getApplicationContext());
         iniciarPartida();
     }
 
@@ -30,12 +33,16 @@ public class MotorJuego {
         if (p.contieneLetra(letra)) {
             for (int i = 0; i < p.palabraLetraALetra.length; i++) {
                 if (p.palabraLetraALetra[i].equals(letra)) {
+                    if(p.palabraOculta[i].contains(letra)){
+                        return false;
+                    }
                     p.palabraOculta[i] = letra;
                 }
             }
             if (palabraDescubierta()) {
                 palabraAcertada();
             }
+            mostrarPalabraOculta();
             return true;
         }
         if(errores<4){
@@ -44,6 +51,7 @@ public class MotorJuego {
             r.reproducirSonido(r.ultimoIntento);
         }
         errores++;
+        mostrarPalabraOculta();
         return false;
     }
 
@@ -71,9 +79,10 @@ public class MotorJuego {
     private void palabraNoAcertada() {
         r.reproducirSonido(r.derrota);
         partidaEnCurso = false;
+        m.imgDefinicion.setVisibility(View.VISIBLE);
         vidas = vidas - 1;
         m.tvVidas.setText(String.valueOf(vidas));
-        m.bAyuda.setVisibility(View.GONE);
+        m.bPista.setVisibility(View.GONE);
         if (vidas <= 0) {
             m.bNuevaPartida.setVisibility(View.VISIBLE);
         } else {
@@ -85,15 +94,16 @@ public class MotorJuego {
         r.reproducirSonido(r.victoria);
         m.img.setImageResource(imgVictoria);
         puntuacion += 100;
+        m.imgDefinicion.setVisibility(View.VISIBLE);
         partidaEnCurso = false;
         m.tvPuntos.setText(String.valueOf(puntuacion));
         b.palabras.remove(p);
         if (!b.palabras.isEmpty()) {
-            m.bAyuda.setVisibility(View.GONE);
+            m.bPista.setVisibility(View.GONE);
             m.bSiguientePalabra.setVisibility(View.VISIBLE);
         } else {
             Toast.makeText(m.getApplicationContext(), "No quedan mas palabras, has ganado!", Toast.LENGTH_LONG).show();
-            m.bAyuda.setVisibility(View.GONE);
+            m.bPista.setVisibility(View.GONE);
             m.bNuevaPartida.setVisibility(View.VISIBLE);
         }
 
@@ -106,12 +116,13 @@ public class MotorJuego {
         puntuacion = 0;
         vidas = 3;
         errores = 0;
+        m.imgDefinicion.setVisibility(View.GONE);
         setImagen();
         mostrarPalabraOculta();
         m.crearTeclado();
         m.tvVidas.setText(String.valueOf(vidas));
         m.tvPuntos.setText(String.valueOf(puntuacion));
-        m.bAyuda.setVisibility(View.VISIBLE);
+        m.bPista.setVisibility(View.VISIBLE);
         m.bNuevaPartida.setVisibility(View.GONE);
         m.bSiguientePalabra.setVisibility(View.GONE);
     }
@@ -121,18 +132,31 @@ public class MotorJuego {
     }
 
 
-    public void mostrarAyuda() {
-        r.reproducirPista(p.getPista());
+    public void mostrarPista() {
+        int random =(int) (Math.random() * p.palabraOculta.length);
+        boolean pista =descubrirPalabra(p.palabraLetraALetra[random]);
+        if(!pista){
+            mostrarPista();
+        }
+    }
+
+    public void mostrarDefinicion(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(m);
+        builder.setTitle("Definición: ");
+        builder.setMessage(p.getDefinicion());
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void siguientePalabra() {
         p = b.getPalabra();
         partidaEnCurso = true;
         errores = 0;
+        m.imgDefinicion.setVisibility(View.GONE);
         setImagen();
         mostrarPalabraOculta();
         m.crearTeclado();
-        m.bAyuda.setVisibility(View.VISIBLE);
+        m.bPista.setVisibility(View.VISIBLE);
         m.bSiguientePalabra.setVisibility(View.GONE);
     }
 }

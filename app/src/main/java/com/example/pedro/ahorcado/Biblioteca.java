@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Biblioteca {
     private static final String[] palabrasString = {"ANDROID","BELINGO"};
-    private static final String[] pista = {"https://ia801500.us.archive.org/34/items/AndroidAndroid/Android-%28Android%29--.mp4","https://s3.amazonaws.com/fancyfootageclips/website/vid/2015-02-02-concert.mp4"};
+    private static final String[] pista = {"SO del movil en el que juegas","Party, fiesta YUJU!"};
     ArrayList<Palabra> palabras;
 
     public Biblioteca(){

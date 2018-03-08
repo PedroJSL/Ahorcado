@@ -64,19 +64,15 @@
             android:padding="5dp"
             android:textSize="20sp" />
 
-        <VideoView
-            android:id="@+id/videoView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:visibility="gone" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/bDefinicion"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone" />
+            android:src="@mipmap/ic_definicion"
+            android:layout_below="@id/imgHorca"
+            android:layout_toEndOf="@+id/tvPalabraOculta"
+            android:layout_marginStart="20dp"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <TableLayout
@@ -90,13 +86,13 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/bAyuda"
+        android:id="@+id/bPista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:background="#0b47fd"
-        android:text="@string/ayuda"
+        android:text="@string/pista"
         android:textColor="@color/colorAccent" />
 
     <Button

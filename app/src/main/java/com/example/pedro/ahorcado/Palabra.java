@@ -3,13 +3,13 @@ package com.example.pedro.ahorcado;
 public class Palabra {
 
     private String palabra;
-    private String pista;
+    private String definicion;
     String[] palabraOculta;
     String[] palabraLetraALetra;
 
     public Palabra(String palabra, String pista) {
         this.palabra = palabra;
-        this.pista = pista;
+        this.definicion = pista;
         setPalabraOculta();
     }
 
@@ -39,7 +39,7 @@ public class Palabra {
         return aux.trim();
     }
 
-    public String getPista() {
-        return pista;
+    public String getDefinicion() {
+        return definicion;
     }
 }

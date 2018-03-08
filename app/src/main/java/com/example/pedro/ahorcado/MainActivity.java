@@ -2,16 +2,14 @@ package com.example.pedro.ahorcado;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.VideoView;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -19,30 +17,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TableLayout teclado;
     TextView tvVidas;
     TextView tvPalabraOculta, tvPuntos;
-    ImageView img;
+    ImageView img, imgDefinicion;
     MotorJuego mj;
-    VideoView vv;
-    ProgressBar pg;
-    Button bAyuda, bSiguientePalabra, bNuevaPartida;
+    Button bPista, bSiguientePalabra, bNuevaPartida;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        vv = findViewById(R.id.videoView);
-        pg = findViewById(R.id.progressBar);
         teclado = findViewById(R.id.teclado);
         img = findViewById(R.id.imgHorca);
         tvPuntos = findViewById(R.id.tvPuntuacion);
         tvVidas = findViewById(R.id.tvVidas);
         tvPalabraOculta = findViewById(R.id.tvPalabraOculta);
-        bAyuda = findViewById(R.id.bAyuda);
-        bAyuda.setOnClickListener(this);
+        bPista = findViewById(R.id.bPista);
+        bPista.setOnClickListener(this);
         bSiguientePalabra = findViewById(R.id.bSiguientePalabra);
         bSiguientePalabra.setOnClickListener(this);
         bNuevaPartida = findViewById(R.id.bNuevaPartida);
         bNuevaPartida.setOnClickListener(this);
+        imgDefinicion = findViewById(R.id.bDefinicion);
+        imgDefinicion.setOnClickListener(this);
 
         mj = new MotorJuego(this);
         mj.mostrarPalabraOculta();
@@ -53,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (aux.getCurrentTextColor() == getResources().getColor(R.color.colorAccent) && mj.partidaEnCurso) {
             if (mj.descubrirPalabra(aux.getText().toString())) {
                 aux.setTextColor(getResources().getColor(R.color.acierto));
-                mj.mostrarPalabraOculta();
             } else {
                 mj.setImagen();
                 aux.setTextColor(getResources().getColor(R.color.error));
@@ -94,8 +88,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.bAyuda:
-                mj.mostrarAyuda();
+            case R.id.bDefinicion:
+                mj.mostrarDefinicion();
+                break;
+            case R.id.bPista:
+                mj.mostrarPista();
                 break;
             case R.id.bSiguientePalabra:
                 mj.siguientePalabra();
