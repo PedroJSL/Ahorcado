@@ -3,7 +3,6 @@ package com.example.pedro.ahorcado;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.view.View;
 
 public class Reproductor {
 

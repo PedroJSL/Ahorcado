@@ -6,4 +6,5 @@
     <color name="fondoTransparencia">#a6ffffff</color>
     <color name="error">#FF0000</color>
     <color name="acierto">#00FF00</color>
+    <color name="letra_def">#000</color>
 </resources>

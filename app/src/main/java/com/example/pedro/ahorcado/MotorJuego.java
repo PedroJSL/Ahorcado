@@ -3,7 +3,9 @@ package com.example.pedro.ahorcado;
 import android.content.DialogInterface;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -21,6 +23,8 @@ public class MotorJuego {
     private int errores;
     private int puntuacion;
     private int vidas;
+    private boolean pistaUsada = false;
+    private int contadorPistas = 0;
     private MainActivity m;
 
     public MotorJuego(MainActivity main) {
@@ -93,7 +97,13 @@ public class MotorJuego {
     private void palabraAcertada() {
         r.reproducirSonido(r.victoria);
         m.img.setImageResource(imgVictoria);
-        puntuacion += 100;
+
+        if(pistaUsada){
+            puntuacion += (100-(contadorPistas*10));
+        }else{
+            puntuacion +=100;
+        }
+
         m.imgDefinicion.setVisibility(View.VISIBLE);
         partidaEnCurso = false;
         m.tvPuntos.setText(String.valueOf(puntuacion));
@@ -116,6 +126,8 @@ public class MotorJuego {
         puntuacion = 0;
         vidas = 3;
         errores = 0;
+        pistaUsada = false;
+        contadorPistas = 0;
         m.imgDefinicion.setVisibility(View.GONE);
         setImagen();
         mostrarPalabraOculta();
@@ -133,17 +145,25 @@ public class MotorJuego {
 
 
     public void mostrarPista() {
-        int random =(int) (Math.random() * p.palabraOculta.length);
-        boolean pista =descubrirPalabra(p.palabraLetraALetra[random]);
-        if(!pista){
-            mostrarPista();
+        if(contadorPistas<=2) {
+            int random = (int) (Math.random() * p.palabraOculta.length);
+            boolean pista = descubrirPalabra(p.palabraLetraALetra[random]);
+            if (!pista) {
+                mostrarPista();
+            }
+            contadorPistas++;
+            pistaUsada=true;
+        }else{
+            Toast.makeText(m,"No hay mas pistas disponibles",Toast.LENGTH_SHORT).show();
         }
     }
 
     public void mostrarDefinicion(){
         AlertDialog.Builder builder = new AlertDialog.Builder(m);
-        builder.setTitle("Definición: ");
-        builder.setMessage(p.getDefinicion());
+        View layout = m.getLayoutInflater().inflate(R.layout.dialog_definicion,null);
+        builder.setView(layout);
+        TextView tv = layout.findViewById(R.id.tvMDef);
+        tv.setText(p.getDefinicion());
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -152,6 +172,8 @@ public class MotorJuego {
         p = b.getPalabra();
         partidaEnCurso = true;
         errores = 0;
+        pistaUsada = false;
+        contadorPistas = 0;
         m.imgDefinicion.setVisibility(View.GONE);
         setImagen();
         mostrarPalabraOculta();
